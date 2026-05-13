@@ -15,44 +15,50 @@
             background: linear-gradient(45deg, #ff9a9e, #fad0c4, #fad0c4, #fff1eb, #fad0c4, #fad0c4, #fff1eb, #fbc2eb, #a6c1ee);
             background-size: 400% 400%;
             animation: gradientShift 15s ease infinite;
-            font-family: 'Comic Sans MS', cursive, sans-serif;
+            font-family: 'Comic Sans MS', 'Chalkboard SE', cursive, sans-serif;
             text-align: center;
-            padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
-            padding-top: max(20px, env(safe-area-inset-top));
-            padding-right: max(20px, env(safe-area-inset-right));
-            padding-bottom: max(20px, env(safe-area-inset-bottom));
-            padding-left: max(20px, env(safe-area-inset-left));
+            /* Using standard padding with fallback for safe areas */
+            padding: 20px;
+            padding: max(20px, env(safe-area-inset-top)) max(20px, env(safe-area-inset-right)) max(20px, env(safe-area-inset-bottom)) max(20px, env(safe-area-inset-left));
             color: #333;
+            box-sizing: border-box;
+        }
+
+        .content-wrapper {
+            width: 100%;
+            max-width: 600px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         h1 {
-            font-size: clamp(2rem, 8vw, 4rem);
-            font-weight: bold;
+            /* Responsive font size: smaller base for mobile, larger cap for desktop */
+            font-size: clamp(2.2rem, 12vw, 4.5rem);
+            font-weight: 900;
             color: #ff1493;
-            text-shadow: 
-                2px 2px 0 #ff69b4,
-                4px 4px 0 #ff1493,
-                6px 6px 0 #db7093;
-            margin-bottom: clamp(15px, 4vw, 30px);
-            letter-spacing: 2px;
-            position: relative;
+            /* Simplified shadow for better legibility on mobile */
+            text-shadow: 2px 2px 0px #fff, 4px 4px 0px #ff69b4;
+            margin: 0 0 20px 0;
+            letter-spacing: -1px; /* Tighter spacing for modern look */
+            line-height: 1.1;
             animation: titleFloat 3s ease-in-out infinite alternate;
-            line-height: 1.2;
+            word-wrap: break-word;
         }
 
         img {
-            max-width: 90%;
+            display: block;
+            max-width: 100%;
             height: auto;
             border-radius: 20px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.2);
             transform: rotate(2deg);
             transition: transform 0.3s ease;
-            border: 3px solid #fff;
-            margin: 0 auto;
+            border: 5px solid #fff;
         }
 
         img:hover {
-            transform: rotate(-2deg) scale(1.03);
+            transform: rotate(0deg) scale(1.02);
         }
 
         @keyframes gradientShift {
@@ -63,49 +69,36 @@
 
         @keyframes titleFloat {
             from { transform: translateY(0px); }
-            to { transform: translateY(-8px); }
+            to { transform: translateY(-10px); }
         }
 
-        /* Reduce motion for users who prefer it */
-        @media (prefers-reduced-motion: reduce) {
-            body {
-                animation: none;
-            }
-            
-            h1 {
-                animation: none;
-            }
-            
-            img {
-                transition: none;
-            }
-        }
-
-        /* Additional breakpoints for better control */
+        /* Mobile Specific Optimization */
         @media (max-width: 480px) {
             h1 {
-                letter-spacing: 1px;
+                text-shadow: 2px 2px 0px #fff, 3px 3px 0px #ff69b4; /* Even simpler shadow */
+                letter-spacing: -0.5px;
             }
             
             img {
-                border-radius: 15px;
-                box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+                width: 95%;
+                border-width: 3px;
+                transform: rotate(0deg); /* Straighten image for more space on tiny screens */
             }
         }
 
-        @media (max-width: 320px) {
-            h1 {
-                font-size: clamp(1.5rem, 10vw, 2.5rem);
-            }
-            
-            body {
-                padding: 10px;
+        @media (prefers-reduced-motion: reduce) {
+            body, h1, img {
+                animation: none !important;
+                transition: none !important;
+                transform: none !important;
             }
         }
     </style>
 </head>
 <body>
-    <h1>WHY ARE YOU GAY ?</h1>
-    <img src="gay.png" alt="Gay Rainbow Image">
+    <div class="content-wrapper">
+        <h1>WHY ARE YOU GAY?</h1>
+        <img src="gay.png" alt="Gay Rainbow Image">
+    </div>
 </body>
 </html>
