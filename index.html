@@ -17,36 +17,42 @@
             animation: gradientShift 15s ease infinite;
             font-family: 'Comic Sans MS', cursive, sans-serif;
             text-align: center;
-            padding: 20px;
+            padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+            padding-top: max(20px, env(safe-area-inset-top));
+            padding-right: max(20px, env(safe-area-inset-right));
+            padding-bottom: max(20px, env(safe-area-inset-bottom));
+            padding-left: max(20px, env(safe-area-inset-left));
             color: #333;
         }
 
         h1 {
-            font-size: 3.5rem;
+            font-size: clamp(2rem, 8vw, 4rem);
             font-weight: bold;
             color: #ff1493;
             text-shadow: 
                 2px 2px 0 #ff69b4,
                 4px 4px 0 #ff1493,
                 6px 6px 0 #db7093;
-            margin-bottom: 30px;
+            margin-bottom: clamp(15px, 4vw, 30px);
             letter-spacing: 2px;
             position: relative;
             animation: titleFloat 3s ease-in-out infinite alternate;
+            line-height: 1.2;
         }
 
         img {
-            max-width: 80%;
+            max-width: 90%;
             height: auto;
             border-radius: 20px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
             transform: rotate(2deg);
             transition: transform 0.3s ease;
-            border: 5px solid #fff;
+            border: 3px solid #fff;
+            margin: 0 auto;
         }
 
         img:hover {
-            transform: rotate(-2deg) scale(1.05);
+            transform: rotate(-2deg) scale(1.03);
         }
 
         @keyframes gradientShift {
@@ -57,12 +63,43 @@
 
         @keyframes titleFloat {
             from { transform: translateY(0px); }
-            to { transform: translateY(-10px); }
+            to { transform: translateY(-8px); }
         }
 
-        @media (max-width: 600px) {
+        /* Reduce motion for users who prefer it */
+        @media (prefers-reduced-motion: reduce) {
+            body {
+                animation: none;
+            }
+            
             h1 {
-                font-size: 2.5rem;
+                animation: none;
+            }
+            
+            img {
+                transition: none;
+            }
+        }
+
+        /* Additional breakpoints for better control */
+        @media (max-width: 480px) {
+            h1 {
+                letter-spacing: 1px;
+            }
+            
+            img {
+                border-radius: 15px;
+                box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            }
+        }
+
+        @media (max-width: 320px) {
+            h1 {
+                font-size: clamp(1.5rem, 10vw, 2.5rem);
+            }
+            
+            body {
+                padding: 10px;
             }
         }
     </style>
